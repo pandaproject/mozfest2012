@@ -1,0 +1,26 @@
+Question:
+
+Does the percentage of runners who finish the race vary with wind speed?
+
+Step 1:
+
+Explain boilerplate
+How to fetch a webpage
+Scraping the year
+
+Step 2:
+
+Scraping the registered and finished runners
+
+Step 3:
+
+Scraping the wind speed
+
+Step 4:
+
+Scraping all the urls
+Writing to a csv
+
+Step 5:
+
+Finished script that scrapes everything

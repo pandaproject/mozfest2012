@@ -6,34 +6,6 @@ from lxml.html import fromstring
 import requests
 
 base_url = 'http://localhost:8000/'
-first_path = '2000s.html'
-scraped_urls = []
-output = []
-
-def scrape_decade_page(url):
-    if url not in scraped_urls:
-        scraped_urls.append(url)
-        response = requests.get(url)
-    else:
-        return None
-
-    doc = fromstring(response.content)
-
-    year_links = doc.cssselect('tr b a')
-    
-    for year_link in year_links:
-        path = year_link.attrib['href']
-        year_url = urljoin(base_url, path)
-        data = scrape_year_page(year_url)
-
-        output.append(data)
-
-    decade_links = doc.cssselect('td[colspan="4"] a')
-
-    for decade_link in decade_links:
-        path = decade_link.attrib['href']
-        decade_url = urljoin(base_url, path)
-        scrape_decade_page(decade_url)
 
 def scrape_year_page(url):
     if url not in scraped_urls:
@@ -46,14 +18,15 @@ def scrape_year_page(url):
 
     data = {}
 
+    # Year
     data['year'] = doc.cssselect('h2')[0].text
     
     rows = doc.cssselect('table table tr')
 
     # Winners
     cells = rows[0].cssselect('td')
-    data['male_winner'] = rows[1].text
-    data['female_winner'] = rows[3].text
+    data['male_winner'] = cells[1].text
+    data['female_winner'] = cells[3].text
 
     # Registered runners
     cells = rows[1].cssselect('td')
@@ -87,11 +60,44 @@ def scrape_year_page(url):
     data['hours_of_sunshine'] = cells[1].text
 
     # Weather description
-    data['weather'] = rows[6].cssselect('i')[0].text 
+    data['weather'] = rows[6].cssselect('i')[0].text.strip() 
 
     return data
 
-first_url = urljoin(base_url, first_path)
-scrape_decade_page(first_url)
+#EXAMPLE_PATH = '1977.asp.html'
+#url = urljoin(base_url, EXAMPLE_PATH)
+#print scrape_year_page(url)
 
-print output
+import csv
+
+decades = [1960, 1970, 1980, 1990, 2000]
+scraped_urls = []
+output = []
+
+for decade in decades:
+    url = urljoin(base_url, '%is.html' % decade)
+    response = requests.get(url)
+
+    if response.status_code != 200:
+        continue
+
+    doc = fromstring(response.content)
+
+    year_links = doc.cssselect('tr b a')
+    
+    for year_link in year_links:
+        path = year_link.attrib['href']
+        year_url = urljoin(base_url, path)
+
+        if year_url not in scraped_urls:
+            data = scrape_year_page(year_url)
+
+            output.append(data)
+            scraped_urls.append(year_url)
+
+field_names = ['year', 'male_winner', 'female_winner', 'registered_runners', 'finished_runners', 'start_temp', 'middle_temp', 'end_temp', 'wind_dir', 'wind_speed', 'hours_of_sunshine', 'weather']
+
+with open('race_history.csv', 'w') as f:
+    writer = csv.DictWriter(f, field_names)
+    writer.writerow(dict(zip(field_names, field_names)))
+    writer.writerows(output)
