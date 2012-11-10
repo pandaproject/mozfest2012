@@ -4,12 +4,8 @@ from lxml.html import fromstring
 import requests
 
 def scrape_year_page(url):
-    if url not in scraped_urls:
-        scraped_urls.append(url)
-        response = requests.get(url)
-    else:
-        return None
-
+    response = requests.get(url)
+    
     doc = fromstring(response.content)
 
     data = {}
@@ -60,7 +56,7 @@ def scrape_year_page(url):
 
     return data
 
-#BASE_URL = 'http://169.254.181.7/'
+BASE_URL = 'http://169.254.107.130/'
 #EXAMPLE_PATH = '1977.asp.html'
 #url = urljoin(BASE_URL, EXAMPLE_PATH)
 #print scrape_year_page(url)
@@ -72,7 +68,7 @@ scraped_urls = []
 output = []
 
 for decade in decades:
-    url = urljoin(base_url, '%is.html' % decade)
+    url = urljoin(BASE_URL, '%is.html' % decade)
     response = requests.get(url)
 
     if response.status_code != 200:
@@ -84,7 +80,7 @@ for decade in decades:
     
     for year_link in year_links:
         path = year_link.attrib['href']
-        year_url = urljoin(base_url, path)
+        year_url = urljoin(BASE_URL, path)
 
         if year_url not in scraped_urls:
             data = scrape_year_page(year_url)

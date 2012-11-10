@@ -25,7 +25,7 @@ def scrape_year_page(url):
 
     return data
 
-BASE_URL = 'http://169.254.181.7/'
+BASE_URL = 'http://169.254.107.130/'
 EXAMPLE_PATH = '1977.asp.html'
 url = urljoin(BASE_URL, EXAMPLE_PATH)
 print scrape_year_page(url)
