@@ -5,7 +5,7 @@ from urlparse import urljoin
 from lxml.html import fromstring
 import requests
 
-base_url = 'http://localhost:8000/'
+base_url = 'http://169.254.181.7/'
 
 def scrape_year_page(url):
     if url not in scraped_urls:
