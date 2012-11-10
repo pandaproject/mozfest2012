@@ -13,19 +13,17 @@ def scrape_year_page(url):
     # Year
     data['year'] = doc.cssselect('h2')[0].text
     
-    rows = doc.cssselect('table table tr')
-
     # Registered runners
-    cells = rows[1].cssselect('td')
-    data['registered_runners'] = int(cells[1].text.replace(',', ''))
+    cell = doc.cssselect('#registered')[0]
+    data['registered_runners'] = int(cell.text.replace(',', ''))
 
     # Finished runners
-    cells = rows[2].cssselect('td')
-    data['finished_runners'] = int(cells[1].text.replace(',', ''))
+    cell = doc.cssselect('#finished')[0]
+    data['finished_runners'] = int(cell.text.replace(',', ''))
 
     return data
 
-BASE_URL = 'http://169.254.107.130/'
+BASE_URL = 'http://169.254.135.23'
 EXAMPLE_PATH = '1977.asp.html'
 url = urljoin(BASE_URL, EXAMPLE_PATH)
 print scrape_year_page(url)

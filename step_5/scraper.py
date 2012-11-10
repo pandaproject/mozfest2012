@@ -21,12 +21,12 @@ def scrape_year_page(url):
     data['female_winner'] = cells[3].text
 
     # Registered runners
-    cells = rows[1].cssselect('td')
-    data['registered_runners'] = int(cells[1].text.replace(',', ''))
+    cell = doc.cssselect('#registered')[0]
+    data['registered_runners'] = int(cell.text.replace(',', ''))
 
     # Finished runners
-    cells = rows[2].cssselect('td')
-    data['finished_runners'] = int(cells[1].text.replace(',', ''))
+    cell = doc.cssselect('#finished')[0]
+    data['finished_runners'] = int(cell.text.replace(',', ''))
 
     # Temps
     temp_items = rows[3].cssselect('li')
@@ -35,8 +35,8 @@ def scrape_year_page(url):
     data['end_temp'] = int(temp_items[2].text.split()[-1])
 
     # Wind
-    cells = rows[4].cssselect('td')
-    wind = cells[1].text
+    cells = doc.cssselect('marquee')
+    wind = cells[0].text
 
     if wind == 'calm':
         data['wind_dir'] = None
@@ -56,7 +56,7 @@ def scrape_year_page(url):
 
     return data
 
-BASE_URL = 'http://169.254.107.130/'
+BASE_URL = 'http://169.254.135.23/'
 #EXAMPLE_PATH = '1977.asp.html'
 #url = urljoin(BASE_URL, EXAMPLE_PATH)
 #print scrape_year_page(url)
