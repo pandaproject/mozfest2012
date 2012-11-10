@@ -50,7 +50,7 @@ scraped_urls = []
 output = []
 
 for decade in decades:
-    url = urljoin(base_url, '%is.html' % decade)
+    url = urljoin(BASE_URL, '%is.html' % decade)
     response = requests.get(url)
 
     if response.status_code != 200:
@@ -62,7 +62,7 @@ for decade in decades:
     
     for year_link in year_links:
         path = year_link.attrib['href']
-        year_url = urljoin(base_url, path)
+        year_url = urljoin(BASE_URL, path)
 
         if year_url not in scraped_urls:
             data = scrape_year_page(year_url)
