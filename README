@@ -1,26 +1,58 @@
+Why write a screen scraper?
+
+    To get data that is available, but not in structured format.
+
+What can I scrape?
+
+    With patience, almost anything. But the more tabular the data the more straightforward it will be.
+
+When doesn't this work?
+
+    When you can't be certain you've found all the data (search only, no predictable urls)
+
+What is PANDA?
+
+    http://pandaproject.net/
+
+Why put data in PANDA?
+
+    To share with your colleagues. To search it.
+
+Tools and technologies:
+
+    Python, Node, Ruby, Scraperwiki, Mechanize
+
+What are we going to produce today?
+
+    A script you can run to extract structured data from an unstructured website.
+
+What we aren't going to cover:
+
+    Sessions/cookies, regular expressions, POST urls/search params, broken HTML, 
+
 Question:
 
-Does the percentage of runners who finish the race vary with wind speed?
+    Does the percentage of runners who finish the race vary with wind speed?
 
 Step 1:
 
-Explain boilerplate
-How to fetch a webpage
-Scraping the year
+    Explain boilerplate
+    How to fetch a webpage
+    Scraping the year
 
 Step 2:
 
-Scraping the registered and finished runners
+    Scraping the registered and finished runners
 
 Step 3:
 
-Scraping the wind speed
+    Scraping the wind speed
 
 Step 4:
 
-Scraping all the urls
-Writing to a csv
+    Scraping all the urls
+    Writing to a csv
 
 Step 5:
 
-Finished script that scrapes everything
+    Finished script that scrapes everything
