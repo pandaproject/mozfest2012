@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 from urlparse import urljoin
 
 from lxml.html import fromstring
