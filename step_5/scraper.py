@@ -3,8 +3,6 @@ from urlparse import urljoin
 from lxml.html import fromstring
 import requests
 
-base_url = 'http://169.254.181.7/'
-
 def scrape_year_page(url):
     if url not in scraped_urls:
         scraped_urls.append(url)
@@ -62,8 +60,9 @@ def scrape_year_page(url):
 
     return data
 
+#BASE_URL = 'http://169.254.181.7/'
 #EXAMPLE_PATH = '1977.asp.html'
-#url = urljoin(base_url, EXAMPLE_PATH)
+#url = urljoin(BASE_URL, EXAMPLE_PATH)
 #print scrape_year_page(url)
 
 import csv
